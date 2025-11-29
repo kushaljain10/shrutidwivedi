@@ -1,5 +1,90 @@
 // Countdown to next Sunday at 3:30 PM local time
 (function () {
+  // Configure this with your Google Apps Script Web App URL
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycby602QO2Qf0L2RwYFymbkEQ31t2Pz4i2aTv2Tz8F3eg7v0WZMkwnheUMXFLG4wfDDWV6Q/exec";
+  // Modal helpers
+  function openModal() {
+    const overlay = document.getElementById("modalOverlay");
+    if (overlay) {
+      overlay.classList.add("active");
+      overlay.setAttribute("aria-hidden", "false");
+      const firstInput = overlay.querySelector(
+        "input, select, textarea, button"
+      );
+      if (firstInput) firstInput.focus();
+    }
+  }
+  function closeModal() {
+    const overlay = document.getElementById("modalOverlay");
+    if (overlay) {
+      overlay.classList.remove("active");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+  }
+  function wireModal() {
+    // Open on CTA anchor buttons (exclude modal submit button)
+    const ctas = document.querySelectorAll("a.btn");
+    ctas.forEach((el) => {
+      el.addEventListener("click", (e) => {
+        // prevent navigation for anchors
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    // Close interactions
+    const overlay = document.getElementById("modalOverlay");
+    const closeBtn = document.getElementById("modalClose");
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (overlay) {
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeModal();
+      });
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    const form = document.getElementById("registerForm");
+    const statusEl = document.getElementById("formStatus");
+    const submitBtn = document.querySelector(".btn-submit");
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        data.append("timestamp", new Date().toISOString());
+
+        if (!SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
+          if (statusEl)
+            statusEl.textContent =
+              "Setup needed: add your Google Apps Script URL in script.js";
+          return;
+        }
+
+        try {
+          if (submitBtn) submitBtn.disabled = true;
+          if (statusEl) statusEl.textContent = "Submitting…";
+          const res = await fetch(SCRIPT_URL, { method: "POST", body: data });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          if (statusEl)
+            statusEl.textContent = "Thanks! We’ve received your details.";
+          setTimeout(() => {
+            closeModal();
+            form.reset();
+            if (statusEl) statusEl.textContent = "";
+            if (submitBtn) submitBtn.disabled = false;
+          }, 1200);
+        } catch (err) {
+          console.error(err);
+          if (statusEl)
+            statusEl.textContent = "Something went wrong. Please try again.";
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      });
+    }
+  }
+
   function nextSundayAt(hours, minutes) {
     const now = new Date();
     const date = new Date(now);
@@ -49,4 +134,11 @@
 
   update();
   setInterval(update, 1000);
+
+  // Initialize modal wiring after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireModal);
+  } else {
+    wireModal();
+  }
 })();

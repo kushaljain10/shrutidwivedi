@@ -19,17 +19,17 @@
         <div class="hero-top">
           <h1>🧠🚀 Unlock Your Child’s Super Brain</h1>
           <h2 class="tagline" style="margin-bottom: 2rem">
-            ✨ Enjoy Your Exams | Free Live Webinar | Parikshit Jobanputra
-            <br />📵 Reduce Mobile Addiction with our Smart Study System using
-            scientific methods! <br />📖 Boost Focus | Fast Reading |
-            Memorization Techniques | Better Scores | Positive Behavior
+            ✨ Enjoy Your Exams | Free Live Webinar | Shruti Dwivedi 📵 Reduce
+            Mobile Addiction with our Smart Study System using scientific
+            methods! 📖 Boost Focus | Fast Reading | Memorization Techniques |
+            Better Scores | Positive Behavior
           </h2>
           <a
             class="btn btn-primary attention"
             href="https://webinar.parikshitjobanputra.com/eye#open-popup"
             target="_blank"
             rel="noopener"
-            >👉 Join Webinar @ Rs. 499/- FREE</a
+            >👉 Join Webinar @ <s>Rs. 499</s> FREE</a
           >
         </div>
         <div class="hero-grid">
@@ -191,7 +191,7 @@
             href="https://webinar.parikshitjobanputra.com/eye#open-popup"
             target="_blank"
             rel="noopener"
-            >Register Now @ Rs. 499/- FREE</a
+            >Register Now @ <s>Rs. 499</s> FREE</a
           >
         </div>
       </div>
@@ -256,11 +256,83 @@
       <div class="container footer-content">
         <a href="#" class="footer-link">Terms of Use</a>
         <a href="#" class="footer-link">Privacy Policy</a>
-        <p class="copyright">
-          © 2025 All Rights Reserved | Parikshit Jobanputra
-        </p>
+        <p class="copyright">© 2025 All Rights Reserved | Shruti Dwivedi</p>
       </div>
     </footer>
+
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+      <div
+        class="modal"
+        role="dialog"
+        aria-labelledby="modalTitle"
+        aria-modal="true"
+      >
+        <button class="modal-close" id="modalClose" aria-label="Close">
+          ×
+        </button>
+        <h3 id="modalTitle" class="modal-title">BOOK Your Seat Now!</h3>
+        <p class="modal-subtitle">Best Summer Vacation Gift for Your Child!</p>
+        <form id="registerForm" class="modal-form" action="#" method="post">
+          <div class="field">
+            <input
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+              required
+            />
+          </div>
+          <div class="field">
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <div class="field">
+            <input type="email" name="email" placeholder="Email ID" required />
+          </div>
+          <div class="field field-flag">
+            <span class="flag">🇮🇳</span>
+            <input
+              type="tel"
+              name="whatsapp"
+              placeholder="WhatsApp No."
+              inputmode="tel"
+              required
+            />
+          </div>
+          <div class="field">
+            <input type="text" name="city" placeholder="City" />
+          </div>
+          <div class="field">
+            <select name="age_group" required>
+              <option value="" disabled selected>
+                What is your child's age group?
+              </option>
+              <option>0 - 5</option>
+              <option>5 - 10</option>
+              <option>10 - 15</option>
+              <option>15 - 20</option>
+              <option>20+</option>
+            </select>
+          </div>
+          <div class="field">
+            <input
+              type="text"
+              name="problem"
+              placeholder="बच्चे की Study को लेकर कोनसी Problem को Face करते है?"
+            />
+          </div>
+          <div class="form-status" id="formStatus" aria-live="polite"></div>
+          <button type="submit" class="btn btn-secondary attention btn-submit">
+            »» REGISTER NOW!
+          </button>
+          <p class="modal-note"># Join Webinar @ <s>Rs. 499</s> FREE</p>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
