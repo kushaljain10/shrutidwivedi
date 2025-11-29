@@ -1,13 +1,13 @@
 /* Theme */
 :root {
   --bg: #ffffff; /* light base */
-  --primary: #6366f1; /* indigo */
-  --primary-700: #4f46e5;
-  --accent: #f43f5e; /* rose */
-  --text: #0f172a; /* dark text */
-  --muted: #475569; /* slate */
+  --primary: #7c3aed; /* vivid violet */
+  --primary-700: #5b21b6; /* deeper violet */
+  --accent: #ff3b3b; /* bold red */
+  --text: #0b1021; /* deep navy text */
+  --muted: #1f2937; /* darker slate for contrast */
   --card: #ffffff; /* light card */
-  --border: #e2e8f0; /* light border */
+  --border: #cbd5e1; /* brighter border */
 }
 
 * {
@@ -63,23 +63,17 @@ body {
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-700));
   color: #fff;
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.35);
 }
 .btn-secondary {
-  background: linear-gradient(135deg, var(--accent), #fb7185);
+  background: linear-gradient(135deg, var(--accent), #ff6b6b);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.25);
+  box-shadow: 0 10px 28px rgba(255, 59, 59, 0.35);
 }
 
 /* Hero */
 .hero {
-  background: radial-gradient(
-      900px 500px at 15% 10%,
-      #a7f3d0 0%,
-      transparent 40%
-    ),
-    radial-gradient(900px 500px at 85% 15%, #fecdd3 0%, transparent 40%),
-    linear-gradient(135deg, #06b6d4 0%, #f43f5e 100%);
+  background: linear-gradient(135deg, #ff3b3b 0%, #6d28d9 50%, #0891b2 100%);
   padding: 3rem 0 2rem;
 }
 .hero-top {
@@ -90,6 +84,12 @@ body {
     sans-serif;
   font-size: 2.2rem;
   margin: 0 0 0.5rem;
+  color: #ffffff;
+  background: var(--primary);
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 .tagline {
   color: var(--muted);
@@ -182,7 +182,7 @@ body {
 
 /* Dedicated vibrant background for coach section */
 .coach-section {
-  background: linear-gradient(135deg, #ffe4e6 0%, #e0f2fe 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #22d3ee 100%);
 }
 
 .learn-grid {
@@ -308,7 +308,7 @@ body {
 /* Footer */
 .footer {
   padding: 2rem 0;
-  background: linear-gradient(135deg, #e0e7ff, #fff1f2);
+  background: linear-gradient(135deg, #7c3aed, #ef4444);
   border-top: 1px solid var(--border);
 }
 .footer-content {
