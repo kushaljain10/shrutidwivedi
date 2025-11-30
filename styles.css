@@ -1,6 +1,8 @@
 /* Theme */
 :root {
   --bg: #ffffff; /* light base */
+  --primary-100: #b1fff9; /* teal */
+  --primary-300: #55d3c8; /* teal */
   --primary: #0d9488; /* teal */
   --primary-700: #0f766e; /* darker teal */
   --accent: #f97316; /* orange */
@@ -48,7 +50,7 @@ body {
   transform: translateY(-1px);
 }
 .attention {
-  animation: bounceY 2.6s ease-in-out infinite;
+  animation: bounceY 0.5s ease-in-out infinite;
   will-change: transform;
 }
 @keyframes bounceY {
@@ -57,7 +59,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-7px);
   }
 }
 .btn-primary {
@@ -68,7 +70,15 @@ body {
 .btn-secondary {
   background: linear-gradient(135deg, var(--accent), #ea580c);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25);
+  /* box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25); */
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-accent {
+  color: var(--accent);
 }
 
 /* Hero */
@@ -84,7 +94,7 @@ body {
     sans-serif;
   font-size: 2.2rem;
   margin: 0 0 2rem;
-  background-color: var(--primary);
+  background-color: var(--accent);
   color: #fff;
   display: inline-block;
   padding: 0.4rem 0.8rem;
@@ -97,6 +107,14 @@ body {
 }
 .hero .tagline {
   color: var(--text);
+}
+
+.hero-highlight {
+  font-size: 1.5em;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--primary-300), var(--primary));
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
 }
 
 .hero-grid {
@@ -152,7 +170,7 @@ body {
 .time {
   text-align: center;
   background: #f1f5f9;
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 0.6rem 0;
 }
 .time span {
@@ -172,6 +190,54 @@ body {
   margin: 0 0 1rem;
 }
 
+#scheduleText {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: rgb(0, 255, 0);
+}
+
+.hurry-text {
+  font-size: 1.1em;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: underline;
+  color: rgb(255, 52, 52) !important;
+  animation: blink 1s steps(1, start) infinite;
+  will-change: opacity;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Strong bounce for specific call-to-action below hurry-text */
+.bounce {
+  animation: bounceYStrong 0.6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes bounceYStrong {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hurry-text,
+  .bounce {
+    animation: none !important;
+  }
+}
+
 /* Sections */
 .section {
   padding: 3rem 0;
@@ -188,7 +254,25 @@ body {
 
 /* Dedicated vibrant background for coach section */
 .coach-section {
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  background: radial-gradient(
+    circle at center,
+    var(--primary-100) 0%,
+    var(--primary) 100%
+  ) !important;
+}
+
+.coach-section .section-title {
+  text-decoration: none;
+  margin-bottom: 0;
+}
+
+.section-smalltitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0rem;
+  margin-top: -1rem;
 }
 
 .learn-grid {
@@ -483,10 +567,14 @@ body {
     margin-bottom: 2rem;
   }
   .hero .tagline {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+
+  .hero-highlight {
+    font-size: 1rem;
   }
   .countdown {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
   .schedule-content h2 {
     text-align: center;
