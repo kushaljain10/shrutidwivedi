@@ -1,13 +1,13 @@
 /* Theme */
 :root {
   --bg: #ffffff; /* light base */
-  --primary: #7c3aed; /* vivid violet */
-  --primary-700: #5b21b6; /* deeper violet */
-  --accent: #ff3b3b; /* bold red */
-  --text: #0b1021; /* deep navy text */
-  --muted: #1f2937; /* darker slate for contrast */
-  --card: #ffffff; /* light card */
-  --border: #cbd5e1; /* brighter border */
+  --primary: #0d9488; /* teal */
+  --primary-700: #0f766e; /* darker teal */
+  --accent: #f97316; /* orange */
+  --text: #0f172a; /* near-black text */
+  --muted: #475569; /* slate */
+  --card: #ffffff; /* light card (default) */
+  --border: #e2e8f0; /* light border */
 }
 
 * {
@@ -63,17 +63,17 @@ body {
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-700));
   color: #fff;
-  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.25);
 }
 .btn-secondary {
-  background: linear-gradient(135deg, var(--accent), #ff6b6b);
+  background: linear-gradient(135deg, var(--accent), #ea580c);
   color: #fff;
-  box-shadow: 0 10px 28px rgba(255, 59, 59, 0.35);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25);
 }
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, #ff3b3b 0%, #6d28d9 50%, #0891b2 100%);
+  background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 100%);
   padding: 3rem 0 2rem;
 }
 .hero-top {
@@ -83,12 +83,12 @@ body {
   font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
   font-size: 2.2rem;
-  margin: 0 0 0.5rem;
-  color: #ffffff;
-  background: var(--primary);
+  margin: 0 0 2rem;
+  background-color: var(--primary);
+  color: #fff;
   display: inline-block;
   padding: 0.4rem 0.8rem;
-  border-radius: 12px;
+  border-radius: 100px;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 .tagline {
@@ -96,8 +96,7 @@ body {
   margin: 0.2rem 0;
 }
 .hero .tagline {
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--text);
 }
 
 .hero-grid {
@@ -108,10 +107,11 @@ body {
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: #111827; /* dark box */
+  color: #f8fafc;
+  border: 1px solid #1f2937; /* darker border */
   border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 .video-wrap {
   padding: 0.75rem;
@@ -168,7 +168,7 @@ body {
   margin: 0 0 0.5rem;
 }
 .schedule-content p {
-  color: var(--muted);
+  color: inherit;
   margin: 0 0 1rem;
 }
 
@@ -176,13 +176,19 @@ body {
 .section {
   padding: 3rem 0;
 }
+.section:not(.alt):nth-of-type(odd) {
+  background: #f8fafc; /* slate-50 */
+}
+.section:not(.alt):nth-of-type(even) {
+  background: #fff7ed; /* orange-50 */
+}
 .section.alt {
   background: #f9fafb;
 }
 
 /* Dedicated vibrant background for coach section */
 .coach-section {
-  background: linear-gradient(135deg, #ff6b6b 0%, #22d3ee 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
 }
 
 .learn-grid {
@@ -308,7 +314,7 @@ body {
 /* Footer */
 .footer {
   padding: 2rem 0;
-  background: linear-gradient(135deg, #7c3aed, #ef4444);
+  background: #ffffff;
   border-top: 1px solid var(--border);
 }
 .footer-content {
@@ -469,14 +475,15 @@ body {
 
 @media (max-width: 480px) {
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
   .section-title {
     font-size: 1.6rem;
     margin-bottom: 2rem;
   }
   .hero .tagline {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
   .countdown {
     grid-template-columns: repeat(2, 1fr);
