@@ -6,6 +6,7 @@
   --primary: #0d9488; /* teal */
   --primary-700: #0f766e; /* darker teal */
   --accent: #f97316; /* orange */
+  --accent-300: #ffb179; /* orange */
   --text: #0f172a; /* near-black text */
   --muted: #475569; /* slate */
   --card: #ffffff; /* light card (default) */
@@ -73,6 +74,11 @@ body {
   /* box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25); */
 }
 
+s {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+}
+
 .text-primary {
   color: var(--primary);
 }
@@ -111,8 +117,8 @@ body {
 
 .hero-highlight {
   font-size: 1.5em;
-  color: var(--text);
-  background: linear-gradient(135deg, var(--primary-300), var(--primary));
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--primary-700), var(--primary));
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
 }
@@ -253,12 +259,16 @@ body {
 }
 
 /* Dedicated vibrant background for coach section */
-.coach-section {
+.gradient-background {
   background: radial-gradient(
     circle at center,
     var(--primary-100) 0%,
     var(--primary) 100%
   ) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary);
 }
 
 .coach-section .section-title {
@@ -308,6 +318,12 @@ body {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
   padding: 0.9rem 1rem 0.9rem 3rem;
+  line-height: 2.4;
+}
+
+.highlight-text {
+  background-color: var(--accent-300);
+  padding: 0.2rem 0.4rem;
 }
 .checklist li::before {
   content: "✔";
