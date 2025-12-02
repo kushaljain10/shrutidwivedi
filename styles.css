@@ -120,7 +120,7 @@ s {
   font-size: 1.5em;
   color: var(--bg);
   /* background: linear-gradient(135deg, var(--primary-300), var(--primary)); */
-  background-color: var(--accent);
+  background-color: #111;
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
 }
