@@ -52,6 +52,11 @@
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        // Enforce browser validation for required fields
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
         const data = new FormData(form);
         data.append("timestamp", new Date().toISOString());
 
@@ -70,11 +75,9 @@
           if (statusEl)
             statusEl.textContent = "Thanks! We’ve received your details.";
           setTimeout(() => {
-            closeModal();
-            form.reset();
-            if (statusEl) statusEl.textContent = "";
-            if (submitBtn) submitBtn.disabled = false;
-          }, 1200);
+            // Redirect to thank-you page
+            window.location.href = "thank-you.html";
+          }, 800);
         } catch (err) {
           console.error(err);
           if (statusEl)
@@ -95,7 +98,7 @@
     return date;
   }
 
-  const target = nextSundayAt(15, 30);
+  let target = nextSundayAt(15, 30);
 
   function update() {
     const now = new Date();
@@ -118,27 +121,86 @@
   }
 
   function formatSchedule(date) {
-    const opts = { weekday: "long", day: "numeric", month: "long" };
+    const day = date.getDate();
+    const suffix = (() => {
+      if (day % 100 >= 11 && day % 100 <= 13) return "th";
+      switch (day % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    })();
+    const month = date.toLocaleDateString([], { month: "long" });
+    const weekday = date.toLocaleDateString([], { weekday: "long" });
     const start = date.toLocaleTimeString([], {
-      hour: "2-digit",
+      hour: "numeric",
       minute: "2-digit",
+      hour12: true,
     });
     const endDate = new Date(date.getTime());
     endDate.setHours(date.getHours() + 2);
     const end = endDate.toLocaleTimeString([], {
-      hour: "2-digit",
+      hour: "numeric",
       minute: "2-digit",
+      hour12: true,
     });
-    return `${date.toLocaleDateString([], opts)}, ${start} to ${end}`;
+    return `${day}${suffix} ${month}, ${weekday} <br /> @ ${start} to ${end}`;
   }
 
   update();
   setInterval(update, 1000);
 
+  async function fetchScheduleFromSheet() {
+    const scheduleEl = document.getElementById("scheduleText");
+    try {
+      if (!SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
+        // Keep fallback and exit if not configured
+        if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
+        return;
+      }
+      const url = new URL(SCRIPT_URL);
+      url.searchParams.set("action", "schedule");
+      const res = await fetch(url.toString(), { method: "GET" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      // Expect one of:
+      // { iso: "2025-12-07T15:30:00+05:30" }
+      // or { date: "2025-12-07", time: "15:30", tz: "+05:30" }
+      let eventDate;
+      if (data && data.iso) {
+        eventDate = new Date(data.iso);
+      } else if (data && data.date && data.time) {
+        const iso = `${data.date}T${data.time}${data.tz || ""}`;
+        eventDate = new Date(iso);
+      }
+
+      if (eventDate && !isNaN(eventDate.getTime())) {
+        target = eventDate;
+        if (scheduleEl) scheduleEl.innerHTML = formatSchedule(eventDate);
+      } else {
+        // Fallback: use existing target
+        if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
+      }
+    } catch (err) {
+      console.error("Failed to fetch schedule:", err);
+      const scheduleEl = document.getElementById("scheduleText");
+      if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
+    }
+  }
+
   // Initialize modal wiring after DOM is ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", wireModal);
+    document.addEventListener("DOMContentLoaded", () => {
+      wireModal();
+      fetchScheduleFromSheet();
+    });
   } else {
     wireModal();
+    fetchScheduleFromSheet();
   }
 })();

@@ -5,6 +5,7 @@
   --primary-300: #55d3c8; /* teal */
   --primary: #0d9488; /* teal */
   --primary-700: #0f766e; /* darker teal */
+  --primary-900: #014f56; /* darkest teal */
   --accent: #f97316; /* orange */
   --accent-300: #ffb179; /* orange */
   --text: #0f172a; /* near-black text */
@@ -89,7 +90,7 @@ s {
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 100%);
+  background: linear-gradient(135deg, var(--primary-900), var(--primary-700));
   padding: 3rem 0 2rem;
 }
 .hero-top {
@@ -112,13 +113,14 @@ s {
   margin: 0.2rem 0;
 }
 .hero .tagline {
-  color: var(--text);
+  color: var(--bg);
 }
 
 .hero-highlight {
   font-size: 1.5em;
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--primary-700), var(--primary));
+  color: var(--text);
+  /* background: linear-gradient(135deg, var(--primary-300), var(--primary)); */
+  background-color: var(--primary-300);
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
 }
@@ -130,10 +132,21 @@ s {
   margin-top: 1.75rem;
 }
 
+.hero-cta {
+  text-align: center;
+  margin-top: 1rem;
+}
+.cta-subtext {
+  margin-top: 0.5rem;
+  font-size: 1.2em;
+  color: var(--bg);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .card {
   background: #111827; /* dark box */
   color: #f8fafc;
-  border: 1px solid #1f2937; /* darker border */
   border-radius: 16px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
@@ -318,7 +331,7 @@ s {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
   padding: 0.9rem 1rem 0.9rem 3rem;
-  line-height: 2.4;
+  line-height: 1.4;
 }
 
 .highlight-text {
@@ -547,6 +560,116 @@ s {
 @media (max-width: 480px) {
   .modal {
     padding: 1rem;
+  }
+}
+
+/* Thank You page */
+.ty-body {
+  /* Use site palette: deep teal gradient akin to screenshot vibe */
+  background: linear-gradient(135deg, var(--primary-900), var(--primary-700));
+}
+.ty-container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  text-align: center;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+}
+.ty-hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.5rem 0 0.75rem;
+}
+.ty-wa-line {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0 0 0.75rem;
+  background: #25d366; /* WhatsApp green */
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.ty-whatsapp {
+  color: var(--primary);
+}
+.wa-icon {
+  margin-right: 0.35rem;
+}
+.ty-wa-line .ty-whatsapp,
+.ty-wa-line .wa-icon {
+  color: #ffffff;
+}
+.btn-orange {
+  background: linear-gradient(135deg, var(--accent), #ea580c);
+  color: #ffffff;
+}
+.ty-video {
+  margin: 1rem auto;
+  background: #111827;
+}
+.ty-video-inner {
+  border: 6px solid var(--accent); /* orange solid frame */
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.ty-cta {
+  margin: 1rem auto;
+}
+.ty-social {
+  margin: 1.25rem auto 3rem;
+}
+.ty-social h3 {
+  color: #e5e7eb;
+  font-weight: 600;
+}
+.social-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+.social-btn.fb {
+  background: #1877f2;
+}
+.social-btn.yt {
+  background: #ff0000;
+}
+.social-btn.ig {
+  background: #e4405f;
+}
+.helpline-bar {
+  background: var(--accent);
+  color: #111827;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  margin: 0 auto 1rem;
+  max-width: 980px;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .ty-hero h1 {
+    font-size: 2rem;
+  }
+  .ty-wa-line {
+    font-size: 1rem;
   }
 }
 
