@@ -565,8 +565,8 @@ s {
 
 /* Thank You page */
 .ty-body {
-  /* Use site palette: deep teal gradient akin to screenshot vibe */
-  background: linear-gradient(135deg, var(--primary-900), var(--primary-700));
+  /* Solid background to avoid light/dark banding */
+  background: var(--primary-900);
 }
 .ty-container {
   width: 100%;
@@ -616,6 +616,8 @@ s {
   border-radius: 16px;
   padding: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  max-width: 720px;
+  margin: 0 auto; /* center inner frame */
 }
 .ty-cta {
   margin: 1rem auto;
@@ -670,6 +672,29 @@ s {
   }
   .ty-wa-line {
     font-size: 1rem;
+  }
+  .ty-container,
+  .ty-hero,
+  .ty-cta,
+  .ty-social,
+  .helpline-bar {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ty-video,
+  .ty-video-inner {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ty-video-inner iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9;
+    display: block;
+  }
+  .social-buttons {
+    justify-content: center;
   }
 }
 
