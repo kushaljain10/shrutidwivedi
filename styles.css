@@ -88,6 +88,30 @@ s {
   color: var(--accent);
 }
 
+/* Inline orange highlight with white text */
+.badge-accent {
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.15rem 0.4rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.section-title-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Section title badge style */
+.title-badge {
+  display: inline-block;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 12px;
+  margin: 0 auto; /* center the heading container */
+}
+
 /* Hero */
 .hero {
   background: linear-gradient(135deg, var(--primary-900), var(--primary-700));
@@ -533,13 +557,17 @@ s {
 }
 .field-flag {
   display: grid;
-  grid-template-columns: 40px 1fr;
+  grid-template-columns: 120px 1fr;
   align-items: center;
   gap: 0.5rem;
 }
-.field-flag .flag {
-  text-align: center;
-  font-size: 1.2rem;
+.isd-select {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
 }
 .modal-note {
   text-align: center;

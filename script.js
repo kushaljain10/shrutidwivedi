@@ -3,6 +3,61 @@
   // Configure this with your Google Apps Script Web App URL
   const SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycby602QO2Qf0L2RwYFymbkEQ31t2Pz4i2aTv2Tz8F3eg7v0WZMkwnheUMXFLG4wfDDWV6Q/exec";
+
+  // Populate ISD codes into the registration form select
+  async function populateISDCodes() {
+    const select = document.getElementById("isdCode");
+    if (!select) return;
+    // Try to fetch a comprehensive country telephone dataset
+    try {
+      const res = await fetch(
+        "https://cdn.jsdelivr.net/npm/country-telephone-data@0.6.7/countries.json"
+      );
+      if (!res.ok) throw new Error("Failed to fetch ISD list");
+      const countries = await res.json();
+      select.innerHTML = "";
+      // Default option label
+      const defaultOpt = document.createElement("option");
+      defaultOpt.value = "";
+      defaultOpt.textContent = "Country Code";
+      defaultOpt.disabled = true;
+      select.appendChild(defaultOpt);
+      countries
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c.dialCode; // e.g., "+91"
+          opt.textContent = `${c.name} (${c.dialCode})`;
+          if (c.name === "India" || c.dialCode === "+91") opt.selected = true;
+          select.appendChild(opt);
+        });
+    } catch (err) {
+      console.warn("ISD list fetch failed, using fallback", err);
+      // Fallback minimal list (includes India by default)
+      const fallback = [
+        { name: "India", dialCode: "+91" },
+        { name: "United States", dialCode: "+1" },
+        { name: "United Kingdom", dialCode: "+44" },
+        { name: "Canada", dialCode: "+1" },
+        { name: "Australia", dialCode: "+61" },
+        { name: "United Arab Emirates", dialCode: "+971" },
+        { name: "Singapore", dialCode: "+65" },
+        { name: "Germany", dialCode: "+49" },
+        { name: "France", dialCode: "+33" },
+        { name: "Nepal", dialCode: "+977" },
+        { name: "Bangladesh", dialCode: "+880" },
+        { name: "Sri Lanka", dialCode: "+94" }
+      ];
+      select.innerHTML = "";
+      fallback.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c.dialCode;
+        opt.textContent = `${c.name} (${c.dialCode})`;
+        if (c.name === "India") opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+  }
   // Modal helpers
   function openModal() {
     const overlay = document.getElementById("modalOverlay");
@@ -49,6 +104,8 @@
     const form = document.getElementById("registerForm");
     const statusEl = document.getElementById("formStatus");
     const submitBtn = document.querySelector(".btn-submit");
+    // Ensure ISD codes are populated when modal is present
+    populateISDCodes();
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -58,6 +115,14 @@
           return;
         }
         const data = new FormData(form);
+        // Normalize combined phone: prepend ISD code if provided
+        const isd = form.querySelector("#isdCode");
+        const phone = form.querySelector("input[name='whatsapp']");
+        if (isd && phone) {
+          const code = isd.value || "";
+          const val = phone.value || "";
+          data.append("phone_full", `${code} ${val}`.trim());
+        }
         data.append("timestamp", new Date().toISOString());
 
         if (!SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {

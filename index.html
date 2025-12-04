@@ -22,7 +22,8 @@
           <h1>🧠 Unlock Your Child’s Super Brain 🚀</h1>
           <h2 class="tagline" style="margin-bottom: 2rem">
             🚀 Boost Your Child's Concentration and Memory in Studies<br />📵
-            Reduce Mobile Addiction with our <span class="text-accent">Smart Study System</span>! 📖
+            Reduce Mobile Addiction with our
+            <span class="badge-accent">Smart Study System</span>! 📖
           </h2>
           <p class="hero-highlight">
             Increase child's reading, writing, learning speed and make studies
@@ -83,8 +84,8 @@
 
     <!-- What You'll Learn -->
     <section class="section">
-      <div class="container">
-        <h2 class="section-title">What You’ll Learn</h2>
+      <div class="container section-title-container">
+        <h2 class="section-title title-badge">What You’ll Learn</h2>
       </div>
       <div class="container learn-grid">
         <div class="learn-media card">
@@ -178,9 +179,11 @@
     <!-- Live Events Gallery -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">
-          1.2M+ Parents & Students Benefited from LIVE Events!
-        </h2>
+        <div class="section-title-container">
+          <h2 class="section-title title-badge">
+            1.2M+ Parents & Students Benefited from LIVE Events!
+          </h2>
+        </div>
         <div class="gallery-grid">
           <img
             src="https://placehold.co/360x200?text=Event+Photo+1"
@@ -224,7 +227,9 @@
     <!-- Testimonials -->
     <section class="section alt">
       <div class="container">
-        <h2 class="section-title">What Our Customers Say!</h2>
+        <div class="section-title-container">
+          <h2 class="section-title title-badge">What Our Customers Say!</h2>
+        </div>
         <div class="testimonials-grid">
           <div class="testimonial card">
             <img
@@ -322,7 +327,10 @@
             <input type="email" name="email" placeholder="Email ID" required />
           </div>
           <div class="field field-flag">
-            <span class="flag">🇮🇳</span>
+            <select name="isd_code" id="isdCode" class="isd-select" required>
+              <option value="" disabled>Country Code</option>
+              <!-- populated by script.js; defaults to India (+91) -->
+            </select>
             <input
               type="tel"
               name="whatsapp"
