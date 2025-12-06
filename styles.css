@@ -13,6 +13,10 @@
   --card: #ffffff; /* light card (default) */
   --border: #e2e8f0; /* light border */
 }
+/* Keep UA components and site colors in light mode */
+html {
+  color-scheme: light;
+}
 
 * {
   box-sizing: border-box;
