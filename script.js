@@ -4,6 +4,10 @@
   const SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycby602QO2Qf0L2RwYFymbkEQ31t2Pz4i2aTv2Tz8F3eg7v0WZMkwnheUMXFLG4wfDDWV6Q/exec";
 
+  // Form submission webhook (n8n)
+  const FORM_WEBHOOK_URL =
+    "https://n8n.srv913080.hstgr.cloud/webhook-test/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
+
   // Populate ISD codes into the registration form select
   async function populateISDCodes() {
     const select = document.getElementById("isdCode");
@@ -125,17 +129,20 @@
         }
         data.append("timestamp", new Date().toISOString());
 
-        if (!SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
+        if (!FORM_WEBHOOK_URL || FORM_WEBHOOK_URL.startsWith("REPLACE_")) {
           if (statusEl)
             statusEl.textContent =
-              "Setup needed: add your Google Apps Script URL in script.js";
+              "Setup needed: add your form webhook URL in script.js";
           return;
         }
 
         try {
           if (submitBtn) submitBtn.disabled = true;
           if (statusEl) statusEl.textContent = "Submitting…";
-          const res = await fetch(SCRIPT_URL, { method: "POST", body: data });
+          const res = await fetch(FORM_WEBHOOK_URL, {
+            method: "POST",
+            body: data,
+          });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           if (statusEl)
             statusEl.textContent = "Thanks! We’ve received your details.";
