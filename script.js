@@ -6,7 +6,7 @@
 
   // Form submission webhook (n8n)
   const FORM_WEBHOOK_URL =
-    "https://n8n.srv913080.hstgr.cloud/webhook-test/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
+    "https://n8n.srv913080.hstgr.cloud/webhook/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
 
   // Populate ISD codes into the registration form select
   async function populateISDCodes() {
@@ -50,7 +50,7 @@
         { name: "France", dialCode: "+33" },
         { name: "Nepal", dialCode: "+977" },
         { name: "Bangladesh", dialCode: "+880" },
-        { name: "Sri Lanka", dialCode: "+94" }
+        { name: "Sri Lanka", dialCode: "+94" },
       ];
       select.innerHTML = "";
       fallback.forEach((c) => {
