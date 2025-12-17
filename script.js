@@ -122,6 +122,11 @@
           return;
         }
         const data = new FormData(form);
+        // Generate an event_id for Meta Pixel / CAPI deduplication
+        const eventId = `lead_${Date.now()}_${Math.random()
+          .toString(36)
+          .slice(2, 10)}`;
+        data.append("fb_event_id", eventId);
         // Normalize combined phone: prepend ISD code if provided
         const isd = form.querySelector("#isdCode");
         const phone = form.querySelector("input[name='whatsapp']");
@@ -147,6 +152,25 @@
             body: data,
           });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          // Track Lead with the same event_id for dedup against CAPI
+          try {
+            const isdCode = isd && isd.value ? isd.value : "";
+            if (window.fbq) {
+              fbq(
+                "track",
+                "Lead",
+                {
+                  content_name: "Webinar Registration",
+                  value: 0,
+                  currency: "INR",
+                  isd_code: isdCode,
+                },
+                { eventID: eventId }
+              );
+            }
+          } catch (err) {
+            console.warn("Pixel Lead tracking failed:", err);
+          }
           if (statusEl)
             statusEl.textContent = "Thanks! We’ve received your details.";
           setTimeout(() => {
