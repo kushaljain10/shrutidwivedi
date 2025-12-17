@@ -8,6 +8,9 @@
   const FORM_WEBHOOK_URL =
     "https://n8n.srv913080.hstgr.cloud/webhook/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
 
+  // Toggle remote schedule fetching to avoid CORS issues in production
+  const ENABLE_REMOTE_SCHEDULE = false;
+
   // Populate ISD codes into the registration form select
   async function populateISDCodes() {
     const select = document.getElementById("isdCode");
@@ -230,7 +233,7 @@
   async function fetchScheduleFromSheet() {
     const scheduleEl = document.getElementById("scheduleText");
     try {
-      if (!SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
+      if (!ENABLE_REMOTE_SCHEDULE || !SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
         // Keep fallback and exit if not configured
         if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
         return;
@@ -259,7 +262,7 @@
         if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
       }
     } catch (err) {
-      console.error("Failed to fetch schedule:", err);
+      console.warn("Schedule fetch skipped or failed, using fallback:", err);
       const scheduleEl = document.getElementById("scheduleText");
       if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
     }
