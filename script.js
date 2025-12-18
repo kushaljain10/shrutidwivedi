@@ -85,8 +85,8 @@
     }
   }
   function wireModal() {
-    // Open on CTA anchor buttons (exclude modal submit button)
-    const ctas = document.querySelectorAll("a.btn");
+    // Open modal on CTA buttons except those marked to navigate
+    const ctas = document.querySelectorAll("a.btn:not(.no-modal)");
     ctas.forEach((el) => {
       el.addEventListener("click", (e) => {
         // prevent navigation for anchors

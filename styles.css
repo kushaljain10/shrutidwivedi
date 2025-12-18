@@ -755,7 +755,7 @@ s {
 
 @media (max-width: 480px) {
   .hero h1 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
   }
   .section-title {
@@ -763,7 +763,7 @@ s {
     margin-bottom: 2rem;
   }
   .hero .tagline {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .hero-highlight {
