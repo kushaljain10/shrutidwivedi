@@ -2,14 +2,14 @@
 (function () {
   // Configure this with your Google Apps Script Web App URL
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycby602QO2Qf0L2RwYFymbkEQ31t2Pz4i2aTv2Tz8F3eg7v0WZMkwnheUMXFLG4wfDDWV6Q/exec";
+    "https://script.google.com/macros/s/AKfycbyKU0ZBpg4Nk4GRk5fmjgtPsUVjtRL0Y232YdyFN7Phibc2KLdDuZGCo_3oAssyqCt9tg/exec";
 
   // Form submission webhook (n8n)
   const FORM_WEBHOOK_URL =
     "https://n8n.srv913080.hstgr.cloud/webhook/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
 
   // Toggle remote schedule fetching to avoid CORS issues in production
-  const ENABLE_REMOTE_SCHEDULE = false;
+  const ENABLE_REMOTE_SCHEDULE = true;
 
   // Populate ISD codes into the registration form select
   async function populateISDCodes() {
@@ -198,6 +198,8 @@
   }
 
   let target = nextSundayAt(15, 30);
+  // Default duration (minutes). Overridden by remote sheet value (cell B4).
+  let durationMinutes = 120;
 
   function update() {
     const now = new Date();
@@ -242,7 +244,8 @@
       hour12: true,
     });
     const endDate = new Date(date.getTime());
-    endDate.setHours(date.getHours() + 2);
+    // Add dynamic duration (in minutes) from sheet (B4), fallback 120
+    endDate.setMinutes(date.getMinutes() + durationMinutes);
     const end = endDate.toLocaleTimeString([], {
       hour: "numeric",
       minute: "2-digit",
@@ -257,7 +260,11 @@
   async function fetchScheduleFromSheet() {
     const scheduleEl = document.getElementById("scheduleText");
     try {
-      if (!ENABLE_REMOTE_SCHEDULE || !SCRIPT_URL || SCRIPT_URL.startsWith("REPLACE_")) {
+      if (
+        !ENABLE_REMOTE_SCHEDULE ||
+        !SCRIPT_URL ||
+        SCRIPT_URL.startsWith("REPLACE_")
+      ) {
         // Keep fallback and exit if not configured
         if (scheduleEl) scheduleEl.innerHTML = formatSchedule(target);
         return;
@@ -268,14 +275,24 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       // Expect one of:
-      // { iso: "2025-12-07T15:30:00+05:30" }
-      // or { date: "2025-12-07", time: "15:30", tz: "+05:30" }
+      // { iso: "2025-12-07T15:30:00+05:30", duration: 120 }
+      // or { date: "2025-12-07", time: "15:30", tz: "+05:30", duration_min: 120 }
       let eventDate;
       if (data && data.iso) {
         eventDate = new Date(data.iso);
       } else if (data && data.date && data.time) {
         const iso = `${data.date}T${data.time}${data.tz || ""}`;
         eventDate = new Date(iso);
+      }
+
+      // Duration value from sheet (cell B4) in minutes
+      const dur = data && (data.duration_min ?? data.duration);
+      console.log("hello");
+      if (dur !== undefined) {
+        const parsed = parseInt(dur, 10);
+        if (!isNaN(parsed) && parsed > 0) {
+          durationMinutes = parsed;
+        }
       }
 
       if (eventDate && !isNaN(eventDate.getTime())) {
