@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Serve sss.html when user requests /sss (or /sss/), without changing URL
+RewriteRule ^sss/?$ sss.html [L]
+
+# Optional: keep existing files/routes working normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule . - [L]
