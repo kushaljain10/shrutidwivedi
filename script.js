@@ -174,8 +174,8 @@
           if (statusEl)
             statusEl.textContent = "Thanks! We’ve received your details.";
           setTimeout(() => {
-            // Redirect to thank-you page
-            window.location.href = "thank-you.html";
+            // Redirect to thank-you page (clean URL on Vercel)
+            window.location.href = "/thank-you";
           }, 800);
         } catch (err) {
           console.error(err);
