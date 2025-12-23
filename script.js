@@ -6,7 +6,7 @@
 
   // Form submission webhook (n8n)
   const FORM_WEBHOOK_URL =
-    "https://n8n.srv913080.hstgr.cloud/webhook/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
+    "https://n8n.srv913080.hstgr.cloud/webhook-test/77548ee1-7f4d-4916-b1ae-3d173c075e7e";
 
   // Toggle remote schedule fetching to avoid CORS issues in production
   const ENABLE_REMOTE_SCHEDULE = true;
